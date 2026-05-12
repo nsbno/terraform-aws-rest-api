@@ -15,3 +15,9 @@ module "rest_api" {
 ```
 
 ## Examples
+
+- [Directly define individual endpoints](./examples/directly-define-endpoints/main.tf)
+- [Endpoints and integrations defined through an OpenAPI schema you provide](./examples/endpoints-using-openapi-schema/main.tf)
+- [Just a simple reverse proxy in front of a backend](./examples/simple-reverse-proxy/main.tf) (such as Application Load Balancer)
+
+See [./examples](./examples) for more examples
