@@ -1,6 +1,6 @@
 locals {
   default_log_retention_in_days = 30
-  log_retention_in_days = coalesce(var.logging.retention_in_days, local.default_log_retention_in_days)
+  log_retention_in_days         = coalesce(var.logging.retention_in_days, local.default_log_retention_in_days)
 }
 
 resource "aws_cloudwatch_log_group" "access_logs" {

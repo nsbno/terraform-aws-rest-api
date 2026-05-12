@@ -4,28 +4,28 @@ variable "name" {
 }
 
 variable "openapi_body" {
-  type = string
+  type     = string
   nullable = true
-  default = null
+  default  = null
 }
 
 variable "logging" {
   type = object({
-    access_logs = optional(bool)
-    execution_logs = optional(bool)
+    access_logs                  = optional(bool)
+    execution_logs               = optional(bool)
     execution_logs_logging_level = optional(string)
-    retention_in_days = optional(number)
+    retention_in_days            = optional(number)
   })
   default = {}
 }
 
 variable "tracing_enabled" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "detailed_metrics_enabled" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Gives you metrics for each endpoint in your API. Defaults to true, because these are really useful"
 }

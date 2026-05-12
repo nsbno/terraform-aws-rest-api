@@ -1,0 +1,24 @@
+name: 'Validate'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate-module:
+    uses: nsbno/platform-actions/.github/workflows/lint.terraform.yml@v2
+    with:
+      terraform-version: '1.15.2'
+
+  validate-examples:
+    uses: nsbno/platform-actions/.github/workflows/lint.terraform.yml@v2
+    strategy:
+      matrix:
+        working_directory:
+          - examples/directly-define-endpoints
+          - examples/endpoints-using-openapi-schema
+          - examples/simple-reverse-proxy
+    with:
+      terraform-version: '1.15.2'
+      working-directory: ${{ matrix.working_directory }}

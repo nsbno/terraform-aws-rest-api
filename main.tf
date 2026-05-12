@@ -4,9 +4,10 @@ resource "aws_api_gateway_rest_api" "this" {
   // Provides the most amount of flexibility, even though "overwrite" is the default
   put_rest_api_mode = "merge"
 
-  depends_on = [
-    aws_cloudwatch_log_group.execution_logs, // May cause unexpected errors
-  ]
+  // Caused Cyclical error. But we should really have a dependency
+  # depends_on = [
+  #   aws_cloudwatch_log_group.execution_logs.id,
+  # ]
 }
 
 resource "aws_api_gateway_deployment" "this" {
@@ -29,7 +30,9 @@ resource "aws_api_gateway_stage" "this" {
   xray_tracing_enabled = var.tracing_enabled
 
   dynamic "access_log_settings" {
+    // There's only 0 or 1 access log groups
     for_each = aws_cloudwatch_log_group.access_logs
+
     content {
       destination_arn = access_log_settings.value.arn
 
@@ -61,4 +64,10 @@ resource "aws_api_gateway_method_settings" "this" {
     logging_level      = coalesce(var.logging.execution_logs_logging_level, "OFF")
     data_trace_enabled = false
   }
+
+  // This was the only place we could place the dependency,
+  // that didn't cause Cyclical errors
+  depends_on = [
+    aws_cloudwatch_log_group.execution_logs,
+  ]
 }
