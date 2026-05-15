@@ -3,11 +3,11 @@
 #   value       = aws_api_gateway_rest_api.rest_service.id
 # }
 
-output "rest_api_recource_proxy_id" {
+output "recource_proxy_id" {
     value = aws_api_gateway_resource.rest_service_proxy.id
 }
 
-output "rest_api_http_method" {
+output "http_method" {
     value = aws_api_gateway_method.rest_service_any.http_method
 }
 

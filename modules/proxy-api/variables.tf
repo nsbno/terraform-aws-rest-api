@@ -13,5 +13,9 @@
 
 # variable "alb_arn" {}
 
-variable "rest_api_id" {}
-variable "parent_id" {}
+variable "rest_api_id" {
+    type = string
+}
+variable "parent_id" {
+    type = string
+}

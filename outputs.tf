@@ -8,10 +8,10 @@ output "root_resource_id" {
   value       = aws_api_gateway_rest_api.rest_service.root_resource_id
 }
 
-output "api_gateway_stage_name" {
+output "stage_name" {
     value = aws_api_gateway_stage.rest_service.stage_name
 }
 
-output "api_gateway_stage_arn" {
+output "stage_arn" {
     value = aws_api_gateway_stage.rest_service.arn
 }
