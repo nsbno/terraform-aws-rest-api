@@ -18,7 +18,7 @@ resource "aws_api_gateway_deployment" "rest_service" {
   lifecycle {
     create_before_destroy = true
   }
-}
+} 
 
 resource "aws_api_gateway_stage" "rest_service" {
   rest_api_id   = aws_api_gateway_rest_api.rest_service.id

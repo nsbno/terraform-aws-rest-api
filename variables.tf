@@ -13,13 +13,13 @@ variable "endpoint_type" {
   }
 }
 
-variable "hosted_zone_name" {
+# variable "hosted_zone_name" {
   
-}
+# }
 
-variable "alb_arn" {
+# variable "alb_arn" {
   
-}
+# }
 
 variable "openapi_body" {
   type     = string
@@ -53,3 +53,13 @@ variable "redeployment_triggers" {
   type        = map(string)
   default     = {}
 }
+
+####################
+
+# output "api_gateway_stage_name" {
+#     value = module.rest_api.api_gateway_stage_name
+# }
+
+# output "api_gateway_stage_arn" {
+#     value = module.rest_api.api_gateway_stage_arn
+# }
