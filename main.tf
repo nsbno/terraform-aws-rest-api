@@ -53,8 +53,8 @@ resource "aws_api_gateway_stage" "rest_service" {
 }
 
 resource "aws_api_gateway_method_settings" "this" {
-  rest_api_id = aws_api_gateway_rest_api.this.id
-  stage_name  = aws_api_gateway_stage.this.stage_name
+  rest_api_id = aws_api_gateway_rest_api.rest_service.id
+  stage_name  = aws_api_gateway_stage.rest_service.stage_name
   method_path = "*/*" # Apply to all resources
 
   settings {
