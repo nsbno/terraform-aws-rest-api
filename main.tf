@@ -1,4 +1,4 @@
-resource "aws_api_gateway_rest_api" "rest_service" {
+resource "aws_api_gateway_rest_api" "this" {
   name = var.name
   disable_execute_api_endpoint = true
 
@@ -7,7 +7,7 @@ resource "aws_api_gateway_rest_api" "rest_service" {
   }
 }
 
-resource "aws_api_gateway_deployment" "rest_service" {
+resource "aws_api_gateway_deployment" "this" {
   rest_api_id = aws_api_gateway_rest_api.rest_service.id
 
   triggers = {
