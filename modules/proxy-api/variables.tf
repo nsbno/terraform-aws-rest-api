@@ -6,7 +6,7 @@ variable "parent_id" {
     type = string
 }
 
-variable "method_authorization" {
+variable "authorization_type" {
     type = string
     default = "AWS_IAM"
     description = "Type of authorization used for the method (NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS)"
