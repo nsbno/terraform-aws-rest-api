@@ -9,9 +9,9 @@ output "root_resource_id" {
 }
 
 output "stage_name" {
-    value = aws_api_gateway_stage.rest_service.stage_name
+  value = aws_api_gateway_stage.rest_service.stage_name
 }
 
 output "stage_arn" {
-    value = aws_api_gateway_stage.rest_service.arn
+  value = aws_api_gateway_stage.rest_service.arn
 }
