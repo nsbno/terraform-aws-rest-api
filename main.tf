@@ -2,17 +2,20 @@ resource "aws_api_gateway_rest_api" "this" {
   name = var.name
   disable_execute_api_endpoint = true
 
+  // Provides the most amount of flexibility, even though "overwrite" is the default
+  put_rest_api_mode = "merge"
+
   endpoint_configuration {
     types = [var.endpoint_type]
   }
 }
 
 resource "aws_api_gateway_deployment" "this" {
-  rest_api_id = aws_api_gateway_rest_api.rest_service.id
+  rest_api_id = aws_api_gateway_rest_api.this.id
 
   triggers = {
     redeployment = sha1(jsonencode(var.redeployment_triggers))
-    changed_body = sha1(jsonencode(aws_api_gateway_rest_api.rest_service.body))
+    changed_body = sha1(jsonencode(aws_api_gateway_rest_api.this.body))
   }
 
   lifecycle {
@@ -20,9 +23,9 @@ resource "aws_api_gateway_deployment" "this" {
   }
 } 
 
-resource "aws_api_gateway_stage" "rest_service" {
-  rest_api_id   = aws_api_gateway_rest_api.rest_service.id
-  deployment_id = aws_api_gateway_deployment.rest_service.id
+resource "aws_api_gateway_stage" "this" {
+  rest_api_id   = aws_api_gateway_rest_api.this.id
+  deployment_id = aws_api_gateway_deployment.this.id
   stage_name    = "default"
 
    xray_tracing_enabled = var.tracing_enabled
@@ -53,8 +56,8 @@ resource "aws_api_gateway_stage" "rest_service" {
 }
 
 resource "aws_api_gateway_method_settings" "this" {
-  rest_api_id = aws_api_gateway_rest_api.rest_service.id
-  stage_name  = aws_api_gateway_stage.rest_service.stage_name
+  rest_api_id = aws_api_gateway_rest_api.this.id
+  stage_name  = aws_api_gateway_stage.this.stage_name
   method_path = "*/*" # Apply to all resources
 
   settings {

@@ -1,14 +1,14 @@
-resource "aws_api_gateway_resource" "rest_service_proxy" {
+resource "aws_api_gateway_resource" "this" {
   rest_api_id = var.rest_api_id
   parent_id   = var.parent_id
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "rest_service_any" {
+resource "aws_api_gateway_method" "this" {
   rest_api_id   = var.rest_api_id
-  resource_id   = aws_api_gateway_resource.rest_service_proxy.id
+  resource_id   = aws_api_gateway_resource.this.id
   http_method   = "ANY"
-  authorization = var.method_authorization
+  authorization = var.authorization_type
 
   request_parameters = {
     "method.request.path.proxy"  = true

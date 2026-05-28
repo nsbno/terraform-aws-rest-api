@@ -13,12 +13,6 @@ variable "endpoint_type" {
   }
 }
 
-variable "openapi_body" {
-  type     = string
-  nullable = true
-  default  = null
-}
-
 variable "logging" {
   type = object({
     access_logs                  = optional(bool)
