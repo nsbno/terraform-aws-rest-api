@@ -11,6 +11,11 @@ variable "endpoint_type" {
     condition     = contains(["REGIONAL", "EDGE", "PRIVATE"], var.endpoint_type)
     error_message = "endpoint_type must be one of REGIONAL, EDGE, or PRIVATE."
   }
+  
+variable "openapi_body" {
+  type     = string
+  nullable = true
+  default  = null
 }
 
 variable "logging" {

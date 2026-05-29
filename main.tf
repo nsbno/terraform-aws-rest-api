@@ -8,6 +8,10 @@ resource "aws_api_gateway_rest_api" "this" {
   endpoint_configuration {
     types = [var.endpoint_type]
   }
+  // Caused Cyclical error. But we should really have a dependency
+  # depends_on = [
+  #   aws_cloudwatch_log_group.execution_logs.id,
+  # ]
 }
 
 resource "aws_api_gateway_deployment" "this" {
