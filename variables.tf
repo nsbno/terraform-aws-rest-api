@@ -41,6 +41,6 @@ variable "detailed_metrics_enabled" {
 
 variable "redeployment_triggers" {
   description = "Map of arbitrary values that, when changed, trigger a redeployment."
-  type        = map(string)
-  default     = {}
+  type        = string
+  default     = ""
 }
