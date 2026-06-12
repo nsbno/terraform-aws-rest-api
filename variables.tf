@@ -44,3 +44,8 @@ variable "redeployment_triggers" {
   type        = string
   default     = ""
 }
+
+variable "enable_execute_api_endpoint" {
+  type = bool
+  default = false
+}
