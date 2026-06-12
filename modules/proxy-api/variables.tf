@@ -16,3 +16,19 @@ variable "authorization_type" {
     error_message = "endpoint_type must be one of NONE, CUSTOM, AWS_IAM or COGNITO_USER_POOLS."
   }
 }
+
+variable "uri" {
+  type = string
+}
+
+variable "connection_id" {
+  type = string
+}
+
+variable "integration_target" {
+  type = string
+}
+
+variable "request_parameters" {
+  type = map(string)
+}
