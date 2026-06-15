@@ -17,18 +17,15 @@ variable "authorization_type" {
   }
 }
 
-variable "uri" {
-  type = string
-}
+variable "load_balancer_integration" {
+  type = object({
+    load_balancer_arn    = string
+    connection_id        = string
+    backend_uri_template = string
+    request_parameters   = optional(map(string))
+  })
 
-variable "connection_id" {
-  type = string
-}
-
-variable "integration_target" {
-  type = string
-}
-
-variable "request_parameters" {
-  type = map(string)
+  description = "Connects the PROXY endpoint in API Gateway to an Application Load Balancer, using VPC Link"
+  nullable    = true
+  default     = null
 }

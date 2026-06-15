@@ -6,22 +6,14 @@ output "http_method" {
   value = aws_api_gateway_method.this.http_method
 }
 
-output "integration_id" {
-  value = aws_api_gateway_integration.rest_service.id
-}
+output "integration" {
+  value = var.load_balancer_integration != null ? {
+    id = aws_api_gateway_integration.load_balancer[0].id
+  } : null
 
-output "type" {
-  value = aws_api_gateway_integration.rest_service.type
-}
+  description = "Information about the proxy integration"
 
-output "uri" {
-  value = aws_api_gateway_integration.rest_service.uri
-}
-
-output "connection_type" {
-  value = aws_api_gateway_integration.rest_service.connection_type
-}
-
-output "request_parameters" {
-  value = aws_api_gateway_integration.rest_service.request_parameters
+  type = object({
+    id = string
+  })
 }

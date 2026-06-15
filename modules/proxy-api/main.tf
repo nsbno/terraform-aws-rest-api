@@ -11,16 +11,18 @@ resource "aws_api_gateway_method" "this" {
   authorization = var.authorization_type
 }
 
-resource "aws_api_gateway_integration" "rest_service" {
+resource "aws_api_gateway_integration" "load_balancer" {
+  count = var.load_balancer_integration != null ? 1 : 0
+
   rest_api_id             = var.rest_api_id
   resource_id             = aws_api_gateway_resource.this.id
   http_method             = aws_api_gateway_method.this.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = var.uri
+  uri                     = var.load_balancer_integration.backend_uri_template
   connection_type         = "VPC_LINK"
-  connection_id           = var.connection_id
-  integration_target      = var.integration_target
-  request_parameters = var.request_parameters
+  connection_id           = var.load_balancer_integration.connection_id
+  integration_target      = var.load_balancer_integration.load_balancer_arn
+  request_parameters      = var.load_balancer_integration.request_parameters
 }
  

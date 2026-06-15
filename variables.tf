@@ -46,6 +46,6 @@ variable "redeployment_triggers" {
 }
 
 variable "enable_execute_api_endpoint" {
-  type = bool
+  type    = bool
   default = false
 }

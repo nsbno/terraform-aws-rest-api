@@ -20,18 +20,6 @@ module "proxy-api" {
 
   rest_api_id = module.rest_api.rest_api_id
   parent_id   = module.rest_api.root_resource_id
+
+  // Insert load_balancer_integration or other appropriate connection
 }
-
-resource "aws_api_gateway_integration" "proxy" {
-  rest_api_id             = module.rest_api.rest_api_id
-  resource_id             = module.proxy-api.recource_proxy_id
-  http_method             = module.proxy-api.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "ANY"
-  uri                     = "${local.backend_url}/{proxy}"
-
-  request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy"
-  }
-}
-
