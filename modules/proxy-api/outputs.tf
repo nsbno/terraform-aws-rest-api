@@ -23,10 +23,3 @@ output "integration" {
     request_parameters = map(string)
   })
 }
-
-# output "redeployment_trigger" {
-#   value = sha1(jsonencode({
-    
-#   }))
-  
-# }
