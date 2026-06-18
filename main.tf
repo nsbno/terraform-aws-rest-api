@@ -1,9 +1,13 @@
 resource "aws_api_gateway_rest_api" "this" {
-  name = var.name
+  name                         = var.name
+  disable_execute_api_endpoint = !var.enable_execute_api_endpoint
 
   // Provides the most amount of flexibility, even though "overwrite" is the default
   put_rest_api_mode = "merge"
 
+  endpoint_configuration {
+    types = [var.endpoint_type]
+  }
   // Caused Cyclical error. But we should really have a dependency
   # depends_on = [
   #   aws_cloudwatch_log_group.execution_logs.id,
@@ -14,6 +18,7 @@ resource "aws_api_gateway_deployment" "this" {
   rest_api_id = aws_api_gateway_rest_api.this.id
 
   triggers = {
+    redeployment = sha1(jsonencode(var.redeployment_triggers))
     changed_body = sha1(jsonencode(aws_api_gateway_rest_api.this.body))
   }
 
@@ -25,7 +30,7 @@ resource "aws_api_gateway_deployment" "this" {
 resource "aws_api_gateway_stage" "this" {
   rest_api_id   = aws_api_gateway_rest_api.this.id
   deployment_id = aws_api_gateway_deployment.this.id
-  stage_name    = "main"
+  stage_name    = "default"
 
   xray_tracing_enabled = var.tracing_enabled
 

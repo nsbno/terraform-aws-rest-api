@@ -3,6 +3,15 @@ variable "name" {
   type        = string
 }
 
+variable "endpoint_type" {
+  type    = string
+  default = "REGIONAL"
+
+  validation {
+    condition     = contains(["REGIONAL", "EDGE", "PRIVATE"], var.endpoint_type)
+    error_message = "endpoint_type must be one of REGIONAL, EDGE, or PRIVATE."
+  }
+}
 variable "openapi_body" {
   type     = string
   nullable = true
@@ -28,4 +37,15 @@ variable "detailed_metrics_enabled" {
   type        = bool
   default     = true
   description = "Gives you metrics for each endpoint in your API. Defaults to true, because these are really useful"
+}
+
+variable "redeployment_triggers" {
+  description = "Map of arbitrary values that, when changed, trigger a redeployment."
+  type        = string
+  default     = ""
+}
+
+variable "enable_execute_api_endpoint" {
+  type    = bool
+  default = false
 }
