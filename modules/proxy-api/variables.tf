@@ -29,3 +29,9 @@ variable "load_balancer_integration" {
   nullable    = true
   default     = null
 }
+
+variable "require_content_type" {
+  description = "If true, the API Gateway will require a Content-Type header for requests. Used to allow binary media types."
+  type        = bool
+  default     = false
+}
