@@ -30,8 +30,11 @@ variable "load_balancer_integration" {
   default     = null
 }
 
-variable "require_content_type" {
-  description = "If true, the API Gateway will require a Content-Type header for requests. Used to allow binary media types."
-  type        = bool
-  default     = false
+variable "method_request_parameters" {
+  description = "Request parameters to be passed from the method request to the integration request."
+  type        = map(bool)
+  default = {
+    "method.request.path.proxy"  = true
+    "method.request.header.host" = true
+  }
 }

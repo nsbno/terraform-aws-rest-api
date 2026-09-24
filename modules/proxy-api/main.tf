@@ -5,17 +5,11 @@ resource "aws_api_gateway_resource" "this" {
 }
 
 resource "aws_api_gateway_method" "this" {
-  rest_api_id   = var.rest_api_id
-  resource_id   = aws_api_gateway_resource.this.id
-  http_method   = "ANY"
-  authorization = var.authorization_type
-  request_parameters = merge(
-    {
-      "method.request.path.proxy" = true
-    "method.request.header.host" = true },
-    var.require_content_type ? {
-      "method.request.header.Content-Type" = true
-  } : {})
+  rest_api_id        = var.rest_api_id
+  resource_id        = aws_api_gateway_resource.this.id
+  http_method        = "ANY"
+  authorization      = var.authorization_type
+  request_parameters = var.method_request_parameters
 }
 
 resource "aws_api_gateway_integration" "load_balancer" {
