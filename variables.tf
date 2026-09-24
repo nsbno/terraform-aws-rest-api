@@ -49,3 +49,9 @@ variable "enable_execute_api_endpoint" {
   type    = bool
   default = false
 }
+
+variable "binary_media_types" {
+  description = "MIME types that API Gateway should treat as binary data."
+  type        = list(string)
+  default     = []
+}

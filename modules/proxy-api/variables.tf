@@ -29,3 +29,12 @@ variable "load_balancer_integration" {
   nullable    = true
   default     = null
 }
+
+variable "method_request_parameters" {
+  description = "Request parameters to be passed from the method request to the integration request."
+  type        = map(bool)
+  default = {
+    "method.request.path.proxy"  = true
+    "method.request.header.host" = true
+  }
+}

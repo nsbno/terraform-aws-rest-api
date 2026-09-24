@@ -1,6 +1,7 @@
 resource "aws_api_gateway_rest_api" "this" {
   name                         = var.name
   disable_execute_api_endpoint = !var.enable_execute_api_endpoint
+  binary_media_types           = var.binary_media_types
 
   // Provides the most amount of flexibility, even though "overwrite" is the default
   put_rest_api_mode = "merge"
