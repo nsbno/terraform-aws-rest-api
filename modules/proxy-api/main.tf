@@ -25,4 +25,6 @@ resource "aws_api_gateway_integration" "load_balancer" {
   connection_id           = var.load_balancer_integration.connection_id
   integration_target      = var.load_balancer_integration.load_balancer_arn
   request_parameters      = var.load_balancer_integration.request_parameters
+  response_transfer_mode  = var.load_balancer_integration.response_transfer_mode
+  timeout_milliseconds    = var.load_balancer_integration.timeout_milliseconds
 }
