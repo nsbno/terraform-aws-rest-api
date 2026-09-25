@@ -19,15 +19,22 @@ variable "authorization_type" {
 
 variable "load_balancer_integration" {
   type = object({
-    load_balancer_arn    = string
-    connection_id        = string
-    backend_uri_template = string
-    request_parameters   = optional(map(string))
+    load_balancer_arn      = string
+    connection_id          = string
+    backend_uri_template   = string
+    request_parameters     = optional(map(string))
+    response_transfer_mode = optional(string, "BUFFERED")
+    timeout_milliseconds   = optional(number, 29000)
   })
 
-  description = "Connects the PROXY endpoint in API Gateway to an Application Load Balancer, using VPC Link"
+  description = "Connects the PROXY endpoint in API Gateway to an Application Load Balancer, using VPC Link. Set response_transfer_mode to STREAM to let the backend stream a response (e.g. Server-Sent Events) instead of API Gateway buffering it in full before returning; STREAM raises the allowed timeout_milliseconds ceiling from 29,000ms to 900,000ms without a service quota increase."
   nullable    = true
   default     = null
+
+  validation {
+    condition     = var.load_balancer_integration == null || contains(["BUFFERED", "STREAM"], var.load_balancer_integration.response_transfer_mode)
+    error_message = "response_transfer_mode must be BUFFERED or STREAM."
+  }
 }
 
 variable "method_request_parameters" {
